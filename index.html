@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHÚC MỪNG NGÀY 8/3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            transition: background 0.5s ease-in-out;
+            flex-direction: column;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        p {
+            font-size: 14px;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        input {
+            padding: 8px;
+            font-size: 14px;
+            width: 80%;
+            max-width: 300px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        button {
+            padding: 8px;
+            font-size: 14px;
+            width: 80%;
+            max-width: 150px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            height: 50vh;
+            position: relative;
+            flex-direction: column;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        .confetti-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 300px;
+            left: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <p style="text-align: center;">Nhập họ tên (viết liền chữ thường không dấu) <br>của bạn để nhận món quà đặc biệt!</p>
+        <input type="text" id="nameInput" placeholder="Nhập tên...">
+        <button onclick="showImage()">Nhận Quà</button>
+        <br>
+        <div class="image-container">
+            <div class="confetti-container" id="confetti-container"></div>
+            <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
+            <button id="downloadBtn" style="display:none; margin-top: 10px;" onclick="downloadImage()">Nhận Quà</button>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <script>
+        function showImage() {
+            let name = document.getElementById("nameInput").value.toLowerCase().trim();
+            let imagePath = `images/${name}.png`;
+            
+            let imgElement = document.getElementById("displayImage");
+            let downloadBtn = document.getElementById("downloadBtn");
+            imgElement.src = imagePath;
+            imgElement.style.display = "block";
+            
+            document.body.style.background = "url('new-background.png') no-repeat center center fixed";
+            document.body.style.backgroundSize = "cover";
+
+            imgElement.onload = function() {
+                launchConfetti();
+                downloadBtn.style.display = "block";
+            };
+            imgElement.onerror = function() {
+                alert("Không tìm thấy ảnh, vui lòng kiểm tra lại tên!");
+                imgElement.style.display = "none";
+                downloadBtn.style.display = "none";
+            };
+        }
+
+        function launchConfetti() {
+            var duration = 5 * 1000; // 5 giây
+            var end = Date.now() + duration;
+            
+            (function frame() {
+                confetti({
+                    particleCount: 10,
+                    spread: 70,
+                    origin: { y: 0.9 }
+                });
+                
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+
+        function downloadImage() {
+            let imgElement = document.getElementById("displayImage");
+            let link = document.createElement("a");
+            link
