@@ -79,9 +79,8 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            top: 50%;
+            top: 0;
             left: 0;
-            transform: translateY(-50%);
             pointer-events: none;
         }
     </style>
@@ -95,18 +94,16 @@
         <div class="image-container">
             <div class="confetti-container" id="confetti-container"></div>
             <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
-            <button id="downloadBtn" style="display:none; margin-top: 10px;" onclick="downloadImage()">Tải Xuống</button>
         </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <script>
-     function showImage() {
+        function showImage() {
             let name = document.getElementById("nameInput").value.toLowerCase().trim();
             let imagePath = `images/${name}.png`;
             
             let imgElement = document.getElementById("displayImage");
-            let downloadBtn = document.getElementById("downloadBtn");
             imgElement.src = imagePath;
             imgElement.style.display = "block";
             
@@ -115,39 +112,19 @@
 
             imgElement.onload = function() {
                 launchConfetti();
-                downloadBtn.style.display = "block";
             };
             imgElement.onerror = function() {
                 alert("Không tìm thấy ảnh, vui lòng kiểm tra lại tên!");
                 imgElement.style.display = "none";
-                downloadBtn.style.display = "none";
             };
         }
 
-
         function launchConfetti() {
-            var duration = 5 * 1000; // 5 giây
-            var end = Date.now() + duration;
-            
-            (function frame() {
-                confetti({
-                    particleCount: 10,
-                    spread: 70,
-                    origin: { y: 0.9 }
-                });
-                
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            })();
-        }
-
-        function downloadImage() {
-            let imgElement = document.getElementById("displayImage");
-            let link = document.createElement("a");
-            link.href = imgElement.src;
-            link.download = "mon-qua-8-3.png";
-            link.click();
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.6 }
+            });
         }
     </script>
 </body>
