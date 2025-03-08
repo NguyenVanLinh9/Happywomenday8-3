@@ -14,7 +14,7 @@
             align-items: center;
             height: 100vh;
             background: url('background.png') no-repeat center center fixed;
-            background-size: cover;
+            background-size: contain;
             transition: background 0.5s ease-in-out;
             flex-direction: column;
         }
@@ -25,9 +25,7 @@
             justify-content: center;
             width: 100%;
             height: 100vh;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            position: relative;
         }
         p {
             font-size: 14px;
@@ -71,8 +69,9 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            top: 300px;
+            top: 50%;
             left: 0;
+            transform: translateY(-50%);
             pointer-events: none;
         }
     </style>
@@ -81,7 +80,7 @@
     <div class="content">
         <p style="text-align: center;">Nhập họ tên (viết liền chữ thường không dấu) <br>của bạn để nhận món quà đặc biệt!</p>
         <input type="text" id="nameInput" placeholder="Nhập tên...">
-        <button onclick="showImage()">Nhận Quà</button>
+        <button onclick="showImage()">Xem Quà</button>
         <br>
         <div class="image-container">
             <div class="confetti-container" id="confetti-container"></div>
@@ -102,7 +101,7 @@
             imgElement.style.display = "block";
             
             document.body.style.background = "url('new-background.png') no-repeat center center fixed";
-            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundSize = "contain";
 
             imgElement.onload = function() {
                 launchConfetti();
