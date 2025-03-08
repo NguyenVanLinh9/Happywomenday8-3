@@ -101,9 +101,9 @@
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <script>
-        function showImage() {
+     function showImage() {
             let name = document.getElementById("nameInput").value.toLowerCase().trim();
-            let imagePath = `https://drive.google.com/thumbnail?id=${getImageId(name)}`;
+            let imagePath = `images/${name}.jpg`;
             
             let imgElement = document.getElementById("displayImage");
             let downloadBtn = document.getElementById("downloadBtn");
@@ -124,27 +124,30 @@
             };
         }
 
-        function getImageId(name) {
-            const imageMap = {
-                "nguyenthivien": "1TahjgPSCCy92cXMmGun8hCLkaIxSBewF",
-                "nguyenthivuong": "1QjTjqtZzaP-Fx_p8HD75NqfqKPqiALkf",
-                "nguyenthuhuyen": "1_GWndYZMx19wPjaG_YUjr3Tc4JZ04sAT",
-                "tongminhphuong": "1ESLAzea3E4AUoxjv1nf44m7xA7kOzWQW",
-                "tongthibien": "1RuxaVgcg9R9ggPn2erWFJgDYr6TyGG1c",
-                "tongthihai": "1hJvMmjuDxBO2K8RWl7ZgPG-VC67DAhWJ",
-                "nguyenlanhuong": "1T-36U_QkWy264uf7EfMP1q4WW-YkKL7b",
-                "thanthiphuonglinh": "1sttN7eI6Km0YWXGEU6eMK8kVNWQsT11W",
-                "dothithu": "1tj7mMbostbwlfnsUtizzmag2oOvRtuuw",
-                "luongminhanh": "18IHHX-hsSjdDWL_RQqM4O0v2mQou1Jh3",
-                "luongminhngoc": "1XCzpYOabI5PAPSiWwzTVyM96bv3DUB5-",
-                "nguyenbaophuong": "1Rv3lwyymAg6kL7T5v_iAHcFWtP_3LXe0",
-                "nguyenphuongthao": "1oOH08xX1L2eYh_iH5Svw2zkH70gJZiRu",
-                "nguyenthiha": "17NIERcZoV3mZ_9Q7nCx8I6QD6VBz8AC-",
-                "nguyenthithuhien": "1SG3wqsOtYvn5fo3759f5y-HRDyH0Ael_",
-                "nguyenthivan": "1i96DiF20wNPHAcqcxMVykduGiheyHnNp",
-                "nguyenphuongnhi": "1D1Ukex_1K1AsIf_mh7dTIakrLpMdxnPY"
-            };
-            return imageMap[name] || "";
+
+        function launchConfetti() {
+            var duration = 5 * 1000; // 5 giây
+            var end = Date.now() + duration;
+            
+            (function frame() {
+                confetti({
+                    particleCount: 10,
+                    spread: 70,
+                    origin: { y: 0.9 }
+                });
+                
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+
+        function downloadImage() {
+            let imgElement = document.getElementById("displayImage");
+            let link = document.createElement("a");
+            link.href = imgElement.src;
+            link.download = "mon-qua-8-3.png";
+            link.click();
         }
     </script>
 </body>
