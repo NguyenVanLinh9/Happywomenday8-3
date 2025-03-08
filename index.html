@@ -59,63 +59,67 @@
             border-radius: 5px;
         }
         .image-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             justify-content: center;
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            margin-top: 20px;
-            position: relative;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
         }
         img {
-            max-width: 100%;
-            height: 100%;
+            max-width: 100vw;
+            max-height: 100vh;
             object-fit: contain;
-            border-radius: 10px;
+            border-radius: 0;
         }
         .confetti-container {
             position: absolute;
             width: 100%;
             height: 100%;
-            top: 0;
+            top: 50%;
             left: 0;
+            transform: translateY(-50%);
             pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <div class="content">
+    <div class="content" id="inputSection">
         <p>Nhập họ tên (viết liền chữ thường không dấu) <br>của bạn để nhận món quà đặc biệt!</p>
         <input type="text" id="nameInput" placeholder="Nhập tên...">
         <button onclick="showImage()">Nhận Quà</button>
-        <br>
-        <div class="image-container">
-            <div class="confetti-container" id="confetti-container"></div>
-            <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
-        </div>
+    </div>
+    <div class="image-container" id="imageContainer">
+        <div class="confetti-container" id="confetti-container"></div>
+        <img id="displayImage" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <script>
-        function showImage() {
+     function showImage() {
             let name = document.getElementById("nameInput").value.toLowerCase().trim();
             let imagePath = `images/${name}.png`;
             
             let imgElement = document.getElementById("displayImage");
-            imgElement.src = imagePath;
-            imgElement.style.display = "block";
+            let imageContainer = document.getElementById("imageContainer");
+            let inputSection = document.getElementById("inputSection");
             
-            document.body.style.background = "url('new-background.png') no-repeat center center fixed";
-            document.body.style.backgroundSize = "cover";
+            imgElement.src = imagePath;
+            imageContainer.style.display = "flex";
+            inputSection.style.display = "none";
+            
+            document.body.style.background = "black";
 
             imgElement.onload = function() {
                 launchConfetti();
             };
             imgElement.onerror = function() {
                 alert("Không tìm thấy ảnh, vui lòng kiểm tra lại tên!");
-                imgElement.style.display = "none";
+                imageContainer.style.display = "none";
+                inputSection.style.display = "block";
             };
         }
 
