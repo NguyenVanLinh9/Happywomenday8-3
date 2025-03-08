@@ -103,9 +103,11 @@
     <script>
         function showImage() {
             let name = document.getElementById("nameInput").value.toLowerCase().trim();
-            let imagePath = `https://github.com/NguyenVanLinh9/Happywomenday8-3/tree/master/images/${name}.png`;
+            let imagePath = `https://raw.githubusercontent.com/NguyenVanLinh9/Happywomenday8-3/tree/master/images/${name}.png`;
+            
             let imgElement = document.getElementById("displayImage");
             let downloadBtn = document.getElementById("downloadBtn");
+            
             imgElement.src = imagePath;
             imgElement.style.display = "block";
             
