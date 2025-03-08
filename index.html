@@ -14,7 +14,7 @@
             align-items: center;
             height: 100vh;
             background: url('background.png') no-repeat center center fixed;
-            background-size: contain;
+            background-size: cover;
             transition: background 0.5s ease-in-out;
         }
         .content {
@@ -22,7 +22,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%;
+            width: 90%;
             max-width: 400px;
             position: absolute;
             top: 50%;
@@ -30,36 +30,44 @@
             transform: translate(-50%, -50%);
         }
         p {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
             font-style: italic;
             margin-bottom: 15px;
             text-align: center;
         }
         input {
-            padding: 8px;
-            font-size: 14px;
-            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
             max-width: 300px;
             margin-bottom: 10px;
             text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
         button {
-            padding: 8px;
-            font-size: 14px;
-            width: 80%;
-            max-width: 150px;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 200px;
             margin-bottom: 20px;
             cursor: pointer;
+            border: none;
+            background-color: #ff69b4;
+            color: white;
+            border-radius: 5px;
         }
         .image-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-            height: 50vh;
-            position: relative;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin-top: 20px;
+            position: relative;
         }
         img {
             max-width: 100%;
@@ -80,14 +88,14 @@
 </head>
 <body>
     <div class="content">
-        <p style="text-align: center;">Nhập họ tên (viết liền chữ thường không dấu) <br>của bạn để nhận món quà đặc biệt!</p>
+        <p>Nhập họ tên (viết liền chữ thường không dấu) <br>của bạn để nhận món quà đặc biệt!</p>
         <input type="text" id="nameInput" placeholder="Nhập tên...">
         <button onclick="showImage()">Nhận Quà</button>
         <br>
         <div class="image-container">
             <div class="confetti-container" id="confetti-container"></div>
             <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
-            <button id="downloadBtn" style="display:none; margin-top: 10px;" onclick="downloadImage()">Nhận Quà</button>
+            <button id="downloadBtn" style="display:none; margin-top: 10px;" onclick="downloadImage()">Tải Xuống</button>
         </div>
     </div>
     
@@ -103,7 +111,7 @@
             imgElement.style.display = "block";
             
             document.body.style.background = "url('new-background.png') no-repeat center center fixed";
-            document.body.style.backgroundSize = "contain";
+            document.body.style.backgroundSize = "cover";
 
             imgElement.onload = function() {
                 launchConfetti();
