@@ -103,7 +103,7 @@
     <script>
         function showImage() {
             let name = document.getElementById("nameInput").value.toLowerCase().trim();
-            let imagePath = `https://drive.google.com/uc?export=view&id=${getImageId(name)}`;
+            let imagePath = `https://drive.google.com/thumbnail?id=${getImageId(name)}`;
             
             let imgElement = document.getElementById("displayImage");
             let downloadBtn = document.getElementById("downloadBtn");
