@@ -120,11 +120,20 @@
         }
 
         function launchConfetti() {
-            confetti({
-                particleCount: 200,
-                spread: 100,
-                origin: { y: 0.6 }
-            });
+            var duration = 5 * 1000; // 5 giây
+            var end = Date.now() + duration;
+            
+            (function frame() {
+                confetti({
+                    particleCount: 10,
+                    spread: 70,
+                    origin: { y: 0.9 }
+                });
+                
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
         }
     </script>
 </body>
