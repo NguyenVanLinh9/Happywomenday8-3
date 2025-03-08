@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHÚC MỪNG NGÀY 8/3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            transition: background 0.5s ease-in-out;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 400px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        p {
+            font-size: 16px;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff69b4;
+            color: white;
+            border-radius: 5px;
+        }
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin-top: 20px;
+            position: relative;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        .confetti-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <p>Nhập họ tên (viết liền chữ thường không dấu) <br>của bạn để nhận món quà đặc biệt!</p>
+        <input type="text" id="nameInput" placeholder="Nhập tên...">
+        <button onclick="showImage()">Nhận Quà</button>
+        <br>
+        <div class="image-container">
+            <div class="confetti-container" id="confetti-container"></div>
+            <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
+            <button id="downloadBtn" style="display:none; margin-top: 10px;" onclick="downloadImage()">Tải Xuống</button>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <script>
+        function showImage() {
+            let name = document.getElementById("nameInput").value.toLowerCase().trim();
+            let imagePath = `https://drive.google.com/uc?export=view&id=1d61i0btjFAwF1jBY1hX75ng5NhC_QV3f`;
+            
+            let imgElement = document.getElementById("displayImage");
+            let downloadBtn = document.getElementById("downloadBtn");
+            imgElement.src = imagePath;
+            imgElement.style.display = "block";
+            
+            document.body.style.background = "url('new-background.png') no-repeat center center fixed";
+            document.body.style.backgroundSize = "cover";
+
+            imgElement.onload = function() {
+                launchConfetti();
+                downloadBtn.style.display = "block";
+            };
+            imgElement.onerror = function() {
+                alert("Không tìm thấy ảnh, vui lòng kiểm tra lại tên!");
+                imgElement.style.display = "none";
+                downloadBtn.style.display = "none";
+            };
+        }
+
+        function launchConfetti() {
+            var duration = 5 * 1000; // 5 giây
+            var end = Date.now() + duration;
+            
+            (function frame() {
+                confetti({
+                    particleCount: 10,
+                    spread: 70,
+                    origin: { y: 0.9 }
+                });
+                
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+
+        function downloadImage() {
+            let imgElement = document.getElementById("displayImage");
+            let link = document.createElement("a");
+            link.href = imgElement.src;
+            link.download = "mon-qua-8-3.png";
+            link.click();
+        }
+    </script>
+</body>
+</html>
